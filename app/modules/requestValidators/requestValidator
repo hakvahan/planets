@@ -1,0 +1,20 @@
+module.exports =
+    {
+        planetPost: (req, res, next) => {
+            if (req.body.name && (typeof req.body.name) === 'string') {
+                next();
+            } else {
+                next(Error("Invalid format"))
+            }
+        },
+
+        planetComment: (req, res, next) => {
+            if (req.body.text && (typeof req.body.text) === 'string') {
+                next();
+            } else {
+                next(Error("Invalid format"))
+            }
+        }
+    }
+
+

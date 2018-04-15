@@ -1,0 +1,26 @@
+module.exports =
+    {
+        required: (req, res, next) => {
+            if (req.header("api_key") === 'verySecretKey'
+                || req.query.key === 'verySecretKey') {
+                next();
+            } else {
+                next(Error("You are not signed in "))
+            }
+        },
+
+        login: (req, res, next) => {
+            const key = "verySecretKey"
+            if (req.body.username == "admin" && req.body.password == "1234") {
+                res.setHeader("api_key", key);
+                res.json({
+                    status: 'ok',
+                    response: {key}
+            })
+            } else {
+                next(Error("Invalid credentials"))
+            }
+        },
+    }
+
+

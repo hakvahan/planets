@@ -1,0 +1,38 @@
+class PhotosDao {
+    constructor(db) {
+        this.db = db;
+    }
+
+    getAll() {
+        return this.db.find({}).exec();
+    }
+
+    findById(id) {
+        return this.db.findOne({'_id': id}).exec();
+    }
+
+    findByName(name) {
+        return this.db.findOne({'name': name}).exec();
+    }
+
+    inserOne(planet) {
+        return planet.save();
+    }
+
+    inserOneComment(planetId, comment) {
+        return this.findById(planetId).then(planet => {
+            if (planet) {
+                planet.comments.push(comment);
+                return planet.save();
+            }
+            else {
+                throw new Error("planet not found");
+            }
+        })
+
+    }
+
+
+}
+
+module.exports = PhotosDao;
